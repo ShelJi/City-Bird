@@ -483,6 +483,12 @@ frameborder="1"
         window.frames["iframe"].location = url;
     }
 
+    // Bypass reload prevention for development or GitHub Pages
+    if (window.performance && window.performance.navigation && window.performance.navigation.type === 1) {
+        // This is a reload, allow it by not blocking or redirecting
+        console.log('Bypassing reload prevention: page reloaded.');
+    }
+
     </script>
 
 </body>
