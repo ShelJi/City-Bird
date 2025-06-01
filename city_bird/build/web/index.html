@@ -483,6 +483,21 @@ frameborder="1"
         window.frames["iframe"].location = url;
     }
 
+    // Bypass reload prevention for development or GitHub Pages
+    if (window.performance && window.performance.navigation && window.performance.navigation.type === 1) {
+        // This is a reload, allow it by not blocking or redirecting
+        console.log('Bypassing reload prevention: page reloaded.');
+    }
+
+    // Remove any beforeunload handler to allow reload without warning
+    window.onbeforeunload = null;
+    window.addEventListener('beforeunload', function(e) {
+        // This disables the 'Changes you made may not be saved.' warning
+        e = e || window.event;
+        if (e) e.returnValue = '';
+        return undefined;
+    });
+
     </script>
 
 </body>
